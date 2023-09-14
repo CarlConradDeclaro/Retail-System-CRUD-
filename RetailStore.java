@@ -11,7 +11,6 @@ import java.time.LocalDate;
  *
  * @author carlconrad
  */
-
 class User{
    int userId;
    String userName;
