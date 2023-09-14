@@ -29,7 +29,6 @@ class User{
         System.out.println("LogOut SuccesFully");
    }
 }
-
 class Customer extends User{
   
     int customerId;
@@ -62,7 +61,6 @@ class Customer extends User{
       }    
     }
 }
-
  class Admin extends User{
      int adminId;
      String department;
@@ -124,7 +122,6 @@ class Customer extends User{
           manageInven.updateStock(product);
     }
  }
-
 class Product{
       int productId;
       String name;
@@ -136,8 +133,7 @@ class Product{
         this.productId = productId;
         this.name = name;
         this.price = price;
-        this.stockQty = stockQty;
-         
+        this.stockQty = stockQty;    
       }
       void updatePrice(Admin product){
           System.out.println("Enter id: ");
