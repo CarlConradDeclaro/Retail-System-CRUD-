@@ -1,4 +1,6 @@
 # Retail System
+<h4 align="center">Visitor's count 👀</h4>
+<p align="center"><img src="https://profile-counter.glitch.me/Retail-System-CRUD-/count.svg" alt="CarlConradDeclaro :: Visitor's Count" /></p>
 
 ## Introduction
 The Retail System is a Java-based application designed to manage products in a retail store. It provides essential functionality for adding, deleting, creating, and updating product information.
