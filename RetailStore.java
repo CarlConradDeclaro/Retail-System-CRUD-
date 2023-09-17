@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author carlconrad
  */
-class User{
+abstract class User{
    int userId;
    String userName;
    String email;
@@ -20,27 +20,32 @@ class User{
     this.userName =userName;
     this.email= email;
    } 
-   void LogIn(){
-        System.out.println("\nWelcome: "+userId +" "+ userName +" "+email +"\n" );
-   }
-   void LogOut(){
-        System.out.println("LogOut SuccesFully");
-   }
+  abstract void LogIn();
+  abstract void LogOut();
 }
 class Customer extends User{
   
     int customerId;
     String address;
     Order order;
+    String user,email;
+    int id;
    
     public Customer(int userId,String userName,String email,int customerId,String address) {
-        super( userId,userName, email);     
+        super( userId,userName, email);    
+        user = userName; this.email = email;id=userId; 
         this.customerId = customerId;
         this.address= address;       
          order = new Order();
      }   
+        // override the abstract     
+      void LogIn(){
+        System.out.println("\nWelcome: "+id +" "+ user +" "+email +"\n" );
+      }
+      void LogOut(){}
+
+
     void placeOrder(Admin prods){ 
-        Order order = new Order();
         prods.printProduct();        
     }
     void viewOrderHistory(Order orderHistory){
@@ -62,14 +67,23 @@ class Customer extends User{
  class Admin extends User{
      int adminId;
      String department;
+     String user,email;
+     int id;
      List<Product> products = new ArrayList<>();
      Scanner sc = new Scanner(System.in);
               
      Admin(int userId,String userName,String email,int adminId,String department) {
             super(userId,userName,email);
+             user = userName; this.email = email;id=userId;
             this.adminId = adminId;
             this.department = department;          
-        }   
+        } 
+        // override the abstract       
+        void LogIn(){
+            System.out.println("\n Admin 2Welcome: "+id +" "+ user +" "+email +"\n" );
+        }
+        void LogOut(){}
+
   void madeProduct(){
             Product prod1 = new Product(1,"iPhone 15",30,50);
             Product prod2 = new Product(2,"Air Force 1",20,50);
@@ -141,6 +155,7 @@ class Product{
                System.out.println("Enter new price: ");
                int newPrice = sc.nextInt();
                prods.price = newPrice;
+               break;
             }
           }
       }
@@ -148,9 +163,13 @@ class Product{
           System.out.println("Enter id: ");
           int x = sc.nextInt();
           for(Product prods : product.products){
-              System.out.println("Enter amount: ");
-              int newQty = sc.nextInt();
-                prods.stockQty = newQty;        
+            if (prods.productId == x) {
+                System.out.println("Enter amount: ");
+                int newQty = sc.nextInt();
+                prods.stockQty = newQty;   
+                break; 
+            }
+                
           }
       }     
 }
@@ -225,7 +244,7 @@ public class RetailStore {
         boolean exec = true;     
         
         do{
-               System.out.println("Login as: \n  1)Customer \n  2)Admin (1?2) \n  3,Exit: ");
+               System.out.println("Login as: \n  1)Customer \n  2)Admin \n  3,Exit: ");
                int as = sc.nextInt();
                
             switch (as) {
