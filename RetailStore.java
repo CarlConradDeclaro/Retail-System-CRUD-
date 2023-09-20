@@ -20,10 +20,25 @@ abstract class User{
     this.userName =userName;
     this.email= email;
    } 
-  abstract void LogIn();
-  abstract void LogOut();
+     void LogIn(){
+           System.out.println("\nWelcome: "+userId +" "+ userName +" "+email +"\n" );
+     };
+    void LogOut(){};
 }
-class Customer extends User{
+interface CustomerMethods{
+    void viewOrderHistory(Order orderHistory);
+    void placeOrder(Admin prods);  
+}
+
+interface AdminMethods{
+ void madeProduct();
+ void addProduct();
+ void printProduct();
+ void removeProduct();
+ void manageInventory(Admin product);
+}
+
+ class Customer  extends User implements CustomerMethods{
   
     int customerId;
     String address;
@@ -39,16 +54,16 @@ class Customer extends User{
          order = new Order();
      }   
         // override the abstract     
-      void LogIn(){
-        System.out.println("\nWelcome: "+id +" "+ user +" "+email +"\n" );
-      }
-      void LogOut(){}
+    // public  void logI(){
+    //     System.out.println("\nWelcome: "+id +" "+ user +" "+email +"\n" );
+    //   }
+    //  public void logO(){}
 
 
-    void placeOrder(Admin prods){ 
+     public void placeOrder(Admin prods){ 
         prods.printProduct();        
     }
-    void viewOrderHistory(Order orderHistory){
+   public void viewOrderHistory(Order orderHistory){
       LocalDate currentDate = LocalDate.now();
       System.out.println("\n\tOrder History\n");        
       for (Map.Entry<Integer, List<Product>> entry : orderHistory.hash.entrySet()) {
@@ -64,7 +79,7 @@ class Customer extends User{
       }    
     }
 }
- class Admin extends User{
+ class Admin extends User implements AdminMethods{
      int adminId;
      String department;
      String user,email;
@@ -79,12 +94,12 @@ class Customer extends User{
             this.department = department;          
         } 
         // override the abstract       
-        void LogIn(){
-            System.out.println("\n Admin 2Welcome: "+id +" "+ user +" "+email +"\n" );
-        }
-        void LogOut(){}
+        // void LogIn(){
+        //     System.out.println("\n Admin 2Welcome: "+id +" "+ user +" "+email +"\n" );
+        // }
+        // void LogOut(){}
 
-  void madeProduct(){
+  public void madeProduct(){
             Product prod1 = new Product(1,"iPhone 15",30,50);
             Product prod2 = new Product(2,"Air Force 1",20,50);
             Product prod3 = new Product(3,"Apple Watch",10,50); 
@@ -105,15 +120,15 @@ class Customer extends User{
         int stockQty = sc.nextInt();
         return new Product(prodId, prodName, prodPrice, stockQty);      
     }  
-    void addProduct(){
+    public void addProduct(){
       products.add(makeProduct());
     }        
-    void printProduct(){       
+    public void printProduct(){       
            for(Product prod : products){
             System.out.println("[id: "+prod.productId +", Name: "+prod.name+", Price: "+ prod.price + "., Quantity: "+ prod.stockQty);
           }          
       }  
-    void removeProduct(){
+    public void removeProduct(){
         System.out.println("Enter id to remove:");
         int x = sc.nextInt();       
         for(Product prod : products){
@@ -123,7 +138,7 @@ class Customer extends User{
            }
         }
     }
-    void manageInventory(Admin product){
+    public void manageInventory(Admin product){
       Product manageInven =  new Product();
       System.out.println("\n 1,Update Price \n2, Update Stock : ");
       int ans = sc.nextInt();
